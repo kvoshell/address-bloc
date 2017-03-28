@@ -43,7 +43,16 @@ require "csv"
           lower = mid + 1
         end
       end
-      return nil  
+      return nil
+    end
+
+    def iterative_search(name)
+      entries.each do |entry|
+        if entry.name == name
+          return entry
+        end
+      end
+      return nil
     end
 =begin
     def remove_entry(name, phone_number, email)
