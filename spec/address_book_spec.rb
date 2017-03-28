@@ -43,7 +43,6 @@ RSpec.describe AddressBook do
     it "imports the correct number of entries" do
       book.import_from_csv("entries.csv")
       book_size = book.entries.size
-
       expect(book_size).to eq 5
     end
 
@@ -124,6 +123,16 @@ RSpec.describe AddressBook do
        book.import_from_csv("entries.csv")
        entry = book.binary_search("Billy")
        expect(entry).to be_nil
+     end
+   end
+
+   describe "#trump_entries" do
+     it "delete all entries" do
+      book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+      book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+      book.trump_entries
+      book_size = book.entries.size
+      expect(book_size).to eq 0
      end
    end
 end

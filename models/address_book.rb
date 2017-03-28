@@ -45,4 +45,9 @@ require "csv"
       end
       return nil
     end
+
+    def trump_entries
+     @entries = []
+    end
+
   end

@@ -14,6 +14,7 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
+    puts "6 - DESTROY EVERYTHING (delete all entries)"
     print "Enter your selection "
 
     selection = gets.to_i
@@ -33,11 +34,16 @@ class MenuController
       main_menu
     when 4
       system "clear"
-      search_entries
+      read_csv
       main_menu
     when 5
       puts "Good-bye!"
       exit(0)
+    when 6
+      system "clear"
+      address_book.trump_entries
+      puts "Your address book is great again!"
+      main_menu
     else
       system "clear"
       puts "Sorry, that is not a valid input"
@@ -72,6 +78,17 @@ class MenuController
   end
 
   def search_entries
+    print "Search by name: "
+    name = gets.chomp
+    match = address_book.binary_search(name)
+    system "clear"
+    if match
+      puts match.to_s
+      search_submenu(match)
+    else
+      puts "No match found for #{name}"
+    end
+
   end
 
   def read_csv
@@ -103,7 +120,10 @@ class MenuController
     case selection
     when "n"
     when "d"
+      delete_entry(entry)
     when "e"
+      edit_entry(entry)
+      entry_submenu(entry)
     when "m"
       system "clear"
       main_menu
@@ -134,4 +154,31 @@ class MenuController
     puts "Updated entry:"
     puts entry
   end
+
+  def search_submenu(entry)
+     puts "d - delete entry"
+     puts "e - edit this entry"
+     puts "m - return to main menu"
+
+     selection = gets.chomp
+
+     case selection
+       when "d"
+         system "clear"
+         delete_entry(entry)
+         main_menu
+       when "e"
+         edit_entry(entry)
+         system "clear"
+         main_menu
+       when "m"
+         system "clear"
+         main_menu
+       else
+         system "clear"
+         puts "#{selection} is not a valid input"
+         puts entry.to_s
+         search_submenu(entry)
+     end
+   end
 end
