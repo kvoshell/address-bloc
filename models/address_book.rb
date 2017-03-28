@@ -43,16 +43,6 @@ require "csv"
           lower = mid + 1
         end
       end
-      return nil  
+      return nil
     end
-=begin
-    def remove_entry(name, phone_number, email)
-      index = 0
-      entries.each do |entry|
-        if name == entry.name && phone_number == entry.phone_number && email == entry.email
-          entries.delete_at(index)
-        end
-        index += 1
-      end
-=end
   end
